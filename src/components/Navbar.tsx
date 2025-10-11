@@ -26,7 +26,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center cursor-pointer" onClick={() => onNavigate('home')}>
             <TrendingUp className="h-8 w-8 text-emerald-500" />
-            <span className="ml-2 text-xl font-bold text-white">ForexEA Pro</span>
+            <span className="ml-2 text-xl font-bold text-white">OPTIVEXY INTELLIGENCE</span>
           </div>
 
           <div className="hidden md:flex items-center space-x-8">

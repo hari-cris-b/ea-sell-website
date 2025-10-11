@@ -143,8 +143,8 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-2">Email Support</h3>
                   <p className="text-slate-400 text-sm mb-2">Our support team is ready to help</p>
-                  <a href="mailto:support@forexeapro.com" className="text-emerald-500 hover:text-emerald-400 transition-colors">
-                    support@forexeapro.com
+                  <a href="mailto:support@optivexyintelligence.com" className="text-emerald-500 hover:text-emerald-400 transition-colors">
+                    support@optivexyintelligence.com
                   </a>
                 </div>
               </div>
@@ -159,7 +159,7 @@ export default function ContactPage() {
                   <h3 className="text-lg font-semibold text-white mb-2">Live Chat</h3>
                   <p className="text-slate-400 text-sm mb-2">Chat with us on Telegram</p>
                   <a href="#" className="text-emerald-500 hover:text-emerald-400 transition-colors">
-                    @ForexEAPro
+                    @OPTIVEXY_INTELLIGENCE
                   </a>
                 </div>
               </div>

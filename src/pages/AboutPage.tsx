@@ -5,7 +5,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-slate-950 pt-24 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-white mb-4">About ForexEA Pro</h1>
+          <h1 className="text-5xl font-bold text-white mb-4">About OPTIVEXY INTELLIGENCE</h1>
           <p className="text-xl text-slate-400 max-w-3xl mx-auto">
             Empowering traders worldwide with intelligent, reliable, and profitable automated trading solutions
           </p>
@@ -24,7 +24,7 @@ export default function AboutPage() {
           <div className="flex flex-col justify-center">
             <h2 className="text-3xl font-bold text-white mb-4">Our Story</h2>
             <p className="text-slate-300 leading-relaxed mb-4">
-              Founded by a team of experienced algorithmic traders and software engineers, ForexEA Pro was born from a simple mission: to democratize access to professional-grade automated trading tools.
+              Founded by a team of experienced algorithmic traders and software engineers, OPTIVEXY INTELLIGENCE was born from a simple mission: to democratize access to professional-grade automated trading tools.
             </p>
             <p className="text-slate-300 leading-relaxed mb-4">
               After years of trading manually and witnessing countless traders struggle with emotional decision-making and time constraints, we decided to leverage our expertise in both forex markets and artificial intelligence to create Expert Advisors that truly work.

@@ -8,7 +8,7 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center mb-4">
               <TrendingUp className="h-8 w-8 text-emerald-500" />
-              <span className="ml-2 text-xl font-bold text-white">ForexEA Pro</span>
+              <span className="ml-2 text-xl font-bold text-white">OPTIVEXY INTELLIGENCE</span>
             </div>
             <p className="text-slate-400 mb-4 max-w-md">
               Professional Forex Expert Advisors designed by algorithmic trading experts.
@@ -54,7 +54,7 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-slate-800">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-slate-400 text-sm">
-              &copy; {new Date().getFullYear()} ForexEA Pro. All rights reserved.
+              &copy; {new Date().getFullYear()} OPTIVEXY INTELLIGENCE. All rights reserved.
             </p>
             <div className="flex items-center space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-slate-400 hover:text-emerald-500 text-sm transition-colors">
