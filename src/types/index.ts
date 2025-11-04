@@ -23,14 +23,33 @@ export interface CartItem {
   quantity: number;
 }
 
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  city: string;
+  referralCode?: string;
+  createdAt: string;
+}
+
+export interface ClientTeam {
+  id: string;
+  name: string;
+  email: string;
+  isActive: boolean;
+}
+
 export interface Order {
   id: string;
-  customerEmail: string;
-  customerName: string;
-  totalAmount: number;
-  status: 'pending' | 'completed' | 'failed' | 'refunded';
+  userId: string;
+  clientTeamId: string;
   items: CartItem[];
+  totalAmount: number;
+  status: 'pending' | 'payment_received' | 'completed' | 'cancelled';
+  paymentMethod?: string;
+  paymentReference?: string;
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface Testimonial {
@@ -41,19 +60,6 @@ export interface Testimonial {
   rating: number;
   avatarUrl?: string;
   isFeatured: boolean;
-}
-
-export interface Review {
-  id: string;
-  productId: string;
-  customerName: string;
-  customerTitle?: string;
-  rating: number;
-  title: string;
-  content: string;
-  date: string;
-  verified: boolean;
-  helpful: number;
 }
 
 export interface ContactSubmission {

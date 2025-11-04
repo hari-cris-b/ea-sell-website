@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import LiveChatWidget from './components/LiveChatWidget';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import ProductDetailPage from './pages/ProductDetailPage';
@@ -50,14 +50,15 @@ function App() {
   };
 
   return (
-    <CartProvider>
-      <div className="min-h-screen bg-slate-950">
-        <Navbar currentPage={currentPage} onNavigate={handleNavigate} />
-        <main>{renderPage()}</main>
-        <Footer />
-        <LiveChatWidget />
-      </div>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <div className="min-h-screen bg-slate-950">
+          <Navbar currentPage={currentPage} onNavigate={handleNavigate} />
+          <main>{renderPage()}</main>
+          <Footer />
+        </div>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 
