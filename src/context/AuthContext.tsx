@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { User } from '../types';
+import { supabase } from '../lib/supabase';
 
 interface AuthContextType {
   user: User | null;
@@ -8,6 +9,7 @@ interface AuthContextType {
   signup: (email: string, name: string, city: string, password: string, referralCode?: string) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  updateUser: (updatedUser: User) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -32,20 +34,45 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signup = async (email: string, name: string, city: string, password: string, referralCode?: string) => {
     setIsLoading(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 800));
+      // Check if user already exists
+      const { data: existingUser } = await supabase
+        .from('customer_users')
+        .select('*')
+        .eq('email', email)
+        .single();
+
+      if (existingUser) {
+        throw new Error('User with this email already exists');
+      }
+
+      // Create user in Supabase
+      const { data, error } = await supabase
+        .from('customer_users')
+        .insert([
+          {
+            email,
+            name,
+            city,
+            referral_code: referralCode || null
+          }
+        ])
+        .select()
+        .single();
+
+      if (error) throw error;
 
       const newUser: User = {
-        id: `user_${Date.now()}`,
-        email,
-        name,
-        city,
-        referralCode,
-        createdAt: new Date().toISOString()
+        id: data.id,
+        email: data.email,
+        name: data.name,
+        city: data.city,
+        referralCode: data.referral_code,
+        createdAt: data.created_at
       };
 
       setUser(newUser);
       localStorage.setItem('forexea_user', JSON.stringify(newUser));
-    } catch (error) {
+    } catch (error: any) {
       console.error('Signup error:', error);
       throw error;
     } finally {
@@ -56,24 +83,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 800));
+      // Fetch user from Supabase
+      const { data, error } = await supabase
+        .from('customer_users')
+        .select('*')
+        .eq('email', email)
+        .single();
 
-      const mockUser: User = {
-        id: `user_${email.split('@')[0]}`,
-        email,
-        name: email.split('@')[0],
-        city: 'Unknown',
-        createdAt: new Date().toISOString()
+      if (error || !data) {
+        throw new Error('Invalid email or password');
+      }
+
+      const loggedInUser: User = {
+        id: data.id,
+        email: data.email,
+        name: data.name,
+        city: data.city,
+        referralCode: data.referral_code,
+        createdAt: data.created_at
       };
 
-      setUser(mockUser);
-      localStorage.setItem('forexea_user', JSON.stringify(mockUser));
-    } catch (error) {
+      setUser(loggedInUser);
+      localStorage.setItem('forexea_user', JSON.stringify(loggedInUser));
+    } catch (error: any) {
       console.error('Login error:', error);
       throw error;
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const updateUser = async (updatedUser: User) => {
+    setUser(updatedUser);
+    localStorage.setItem('forexea_user', JSON.stringify(updatedUser));
   };
 
   const logout = () => {
@@ -89,7 +131,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         isAuthenticated: !!user,
         signup,
         login,
-        logout
+        logout,
+        updateUser
       }}
     >
       {children}

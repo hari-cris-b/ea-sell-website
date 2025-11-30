@@ -22,43 +22,66 @@ export default function HomePage({ onNavigate }: HomePageProps) {
   return (
     <div className="bg-slate-950">
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-950/20 via-slate-950 to-slate-950"></div>
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+        {/* Animated gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-950/20 via-slate-950 to-blue-950/20"></div>
+        
+        {/* Animated orbs */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
-          <div className="inline-block mb-6">
-            <span className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium">
-              <Zap className="w-4 h-4 mr-2" />
+        {/* Floating particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-1 h-1 bg-emerald-500/30 rounded-full animate-float"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${5 + Math.random() * 10}s`
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)]"></div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center z-10">
+          <div className="inline-block mb-6 animate-fade-in-down">
+            <span className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm font-medium backdrop-blur-sm hover:bg-emerald-500/20 transition-all duration-300">
+              <Zap className="w-4 h-4 mr-2 animate-pulse" />
               AI-Powered Trading Solutions
             </span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight animate-fade-in-up">
             Automate Your Trading.<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-emerald-900">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 animate-gradient">
               Maximize Your Profits.
             </span>
           </h1>
 
-          <p className="text-xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
             Professional Forex Expert Advisors backed by years of backtesting and real trading results.
             Join thousands of traders who automate their success.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <button
               onClick={() => onNavigate('products')}
-              className="group px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-emerald-500/50 hover:shadow-emerald-500/70 flex items-center justify-center"
+              className="group px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-emerald-500/50 hover:shadow-emerald-500/70 hover:scale-105 flex items-center justify-center"
             >
               View Expert Advisors
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
             <button
               onClick={() => onNavigate('about')}
-              className="px-8 py-4 bg-slate-800 text-white rounded-lg font-semibold hover:bg-slate-700 transition-all duration-300 border border-slate-700"
+              className="px-8 py-4 bg-slate-800/50 backdrop-blur-sm text-white rounded-lg font-semibold hover:bg-slate-700/50 transition-all duration-300 border border-slate-700 hover:border-emerald-500/50 hover:scale-105"
             >
               Learn More
             </button>
@@ -71,7 +94,11 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               { value: 24, suffix: '/7', label: 'Auto Trading' },
               { value: 5, suffix: '+ Years', label: 'Backtested' }
             ].map((stat, index) => (
-              <div key={index} className="text-center">
+              <div 
+                key={index} 
+                className="text-center p-4 rounded-xl bg-slate-900/50 backdrop-blur-sm border border-slate-800 hover:border-emerald-500/50 transition-all duration-300 hover:scale-105 animate-fade-in"
+                style={{ animationDelay: `${0.6 + index * 0.1}s` }}
+              >
                 <div className="text-3xl md:text-4xl font-bold text-emerald-500 mb-2">
                   <AnimatedCounter
                     value={stat.value}
@@ -83,6 +110,13 @@ export default function HomePage({ onNavigate }: HomePageProps) {
                 <div className="text-sm text-slate-400">{stat.label}</div>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-emerald-500/50 rounded-full flex items-start justify-center p-2">
+            <div className="w-1 h-3 bg-emerald-500 rounded-full animate-scroll"></div>
           </div>
         </div>
       </section>
